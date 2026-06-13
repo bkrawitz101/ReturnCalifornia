@@ -190,7 +190,10 @@
         .card {
             background-color: transparent;
             perspective: 1000px;
-            min-height: 480px;
+            aspect-ratio: 9 / 16;
+            width: 100%;
+            cursor: pointer;
+            -webkit-tap-highlight-color: transparent;
         }
 
         .card-inner {
@@ -204,7 +207,8 @@
             box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .card:hover .card-inner {
+        .card:hover .card-inner,
+        .card.flipped .card-inner {
             transform: rotateY(180deg);
             box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
         }
@@ -226,6 +230,27 @@
             background-size: cover;
             background-position: center;
             overflow: hidden;
+        }
+
+        .flip-indicator {
+            position: absolute;
+            bottom: 12px;
+            right: 12px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            backdrop-filter: blur(4px);
+        }
+        
+        .flip-indicator svg {
+            width: 18px;
+            height: 18px;
         }
 
         .card-back {
@@ -425,6 +450,12 @@
             <div class="card card-east reveal">
                 <div class="card-inner">
                     <div class="card-front" style="background-image: url('images/east_front.webp');">
+                            <div class="flip-indicator" aria-label="Tap to flip">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                                    <path d="M21 3v5h-5"></path>
+                                </svg>
+                            </div>
                     </div>
                     <div class="card-back">
                         <div>
@@ -444,6 +475,12 @@
             <div class="card card-south reveal">
                 <div class="card-inner">
                     <div class="card-front" style="background-image: url('images/south_front.webp');">
+                            <div class="flip-indicator" aria-label="Tap to flip">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                                    <path d="M21 3v5h-5"></path>
+                                </svg>
+                            </div>
                     </div>
                     <div class="card-back">
                         <div>
@@ -463,6 +500,12 @@
             <div class="card card-west reveal">
                 <div class="card-inner">
                     <div class="card-front" style="background-image: url('images/west_front.webp');">
+                            <div class="flip-indicator" aria-label="Tap to flip">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                                    <path d="M21 3v5h-5"></path>
+                                </svg>
+                            </div>
                     </div>
                     <div class="card-back">
                         <div>
@@ -482,6 +525,12 @@
             <div class="card card-north reveal">
                 <div class="card-inner">
                     <div class="card-front" style="background-image: url('images/north_front.webp');">
+                            <div class="flip-indicator" aria-label="Tap to flip">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
+                                    <path d="M21 3v5h-5"></path>
+                                </svg>
+                            </div>
                     </div>
                     <div class="card-back">
                         <div>
@@ -537,6 +586,14 @@
         }
         window.addEventListener('scroll', revealElements);
         revealElements(); // Trigger once on load
+
+        // Mobile Card Flip Interactivity
+        const cards = document.querySelectorAll('.card');
+        cards.forEach(card => {
+            card.addEventListener('click', function() {
+                this.classList.toggle('flipped');
+            });
+        });
     </script>
 </body>
 </html>
