@@ -15,6 +15,10 @@
             --ember-clay: #B86E4B;
             --bark: #2E312C;
             --sand: #E8E3D8;
+            --east-yellow: #FACC15;
+            --south-red: #EF4444;
+            --west-black: #1F2937;
+            --north-white: #F9FAFB;
         }
 
         * {
@@ -184,53 +188,132 @@
         }
 
         .card {
-            background: var(--mist-cream);
-            border-radius: 4px;
-            overflow: hidden;
-            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
-            transition: transform 0.5s ease;
+            background-color: transparent;
+            perspective: 1000px;
+            min-height: 480px;
         }
 
-        .card:hover {
-            transform: translateY(-10px);
+        .card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: left;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
         }
 
-        .card-img {
-            height: 200px;
+        .card:hover .card-inner {
+            transform: rotateY(180deg);
+            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
+        }
+
+        .card-front, .card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 8px;
+        }
+
+        .card-front {
+            background-color: var(--bark);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
             background-size: cover;
             background-position: center;
+            overflow: hidden;
         }
 
-        .earth-img { background-image: url('https://images.unsplash.com/photo-1629196914562-b9e4a8335f49?auto=format&fit=crop&w=600&q=80'); }
-        .wind-img { background-image: url('https://images.unsplash.com/photo-1445264618000-f1e069c5920f?auto=format&fit=crop&w=600&q=80'); }
-        .fire-img { background-image: url('https://images.unsplash.com/photo-1504368560064-07d0f41d248b?auto=format&fit=crop&w=600&q=80'); }
-        .water-img { background-image: url('https://images.unsplash.com/photo-1437482078695-73f5ca6c96e2?auto=format&fit=crop&w=600&q=80'); }
-
-        .card-content {
-            padding: 30px;
-            text-align: center;
+        .card-back {
+            background-color: white;
+            transform: rotateY(180deg);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            padding: 1.5rem;
+            overflow-y: auto;
         }
 
-        .card-content h3 {
-            font-size: 1.8rem;
-            margin-bottom: 15px;
+        .card-east .card-back { border-top: 6px solid var(--east-yellow); }
+        .card-south .card-back { border-top: 6px solid var(--south-red); }
+        .card-west .card-back { 
+            border-top: 6px solid var(--west-black); 
+            background-color: var(--west-black);
+            color: var(--mist-cream);
+        }
+        .card-north .card-back { 
+            border-top: 6px solid var(--bark); 
+            background-color: var(--north-white);
         }
 
-        .card-content p {
-            font-size: 0.95rem;
+        .card-west .direction-focus { color: var(--mist-cream); opacity: 0.9; }
+        .card-west .direction-meaning { color: var(--mist-cream); opacity: 0.7; }
+        .card-west .card-back h3 { color: white; }
+
+        .direction-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .medicine-badge {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            border-radius: 999px;
+            font-family: 'Inter', sans-serif;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-east { background: #FEF08A; color: #854D0E; }
+        .badge-south { background: #FECACA; color: #991B1B; }
+        .badge-west { background: #374151; color: #D1D5DB; }
+        .badge-north { background: #E5E7EB; color: #374151; }
+
+        .direction-meaning {
+            font-style: italic;
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
             color: var(--bark);
             opacity: 0.8;
         }
 
-        /* Banner Section */
+        .direction-focus {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 1.25rem;
+            color: var(--bark);
+        }
+
+        .direction-gift {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(156, 163, 175, 0.3);
+            font-size: 0.95rem;
+        }
+
+        .gift-label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.25rem;
+        }
+
+        /* Banner Section (West - Introspection) */
         .banner {
             padding: 120px 20px;
             text-align: center;
-            background-image: linear-gradient(rgba(143, 162, 135, 0.9), rgba(108, 125, 101, 0.9)), url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1920&q=80');
+            background-image: linear-gradient(rgba(31, 41, 55, 0.9), rgba(31, 41, 55, 0.9)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80');
             background-size: cover;
             background-position: center;
             background-attachment: fixed;
-            color: white;
+            color: var(--mist-cream);
         }
 
         .banner h2 {
@@ -264,10 +347,10 @@
             color: var(--mist-cream);
         }
 
-        /* Footer */
+        /* Footer (North - Wisdom, Completion) */
         footer {
-            background: var(--bark);
-            color: var(--mist-cream);
+            background: var(--north-white);
+            color: var(--bark);
             padding: 80px 50px 40px 50px;
             text-align: center;
         }
@@ -276,7 +359,7 @@
             font-family: 'Cormorant Garamond', serif;
             font-size: 2.5rem;
             margin-bottom: 20px;
-            color: var(--sage);
+            color: var(--redwood);
         }
 
         .footer-text {
@@ -313,7 +396,7 @@
         <a href="#" class="logo">Return California</a>
         <div class="nav-links">
             <a href="#mission">Our Mission</a>
-            <a href="#elements">The Elements</a>
+            <a href="#directions">The Directions</a>
             <a href="#stewardship">Stewardship</a>
         </div>
     </nav>
@@ -332,38 +415,85 @@
         <div class="split-image reveal"></div>
     </section>
 
-    <section id="elements" class="elements-wrapper">
+    <section id="directions" class="elements-wrapper">
         <div class="elements-header reveal">
-            <h2>Honoring the Elements</h2>
-            <p>Walking with respect and learning from the natural world.</p>
+            <h2>Walk in Harmony</h2>
+            <p>We must learn from all four directions to find our center and walk in right relationship.</p>
         </div>
         <div class="elements-grid">
-            <div class="card reveal">
-                <div class="card-img earth-img"></div>
-                <div class="card-content">
-                    <h3 style="color: var(--redwood);">Earth</h3>
-                    <p>Rooted in teachings, tending the soil, and walking with deep respect for the land and animals.</p>
+            <!-- East -->
+            <div class="card card-east reveal">
+                <div class="card-inner">
+                    <div class="card-front" style="background-image: url('images/east_front.webp');">
+                    </div>
+                    <div class="card-back">
+                        <div>
+                            <h3 class="direction-title">East <span class="medicine-badge badge-east">Sweetgrass</span></h3>
+                            <p class="direction-meaning">Represents new beginnings, sunrise, spring, and childhood.</p>
+                            <p class="direction-focus">Focus on spiritual awakening, mental clarity, and the breath of life. Often associated with the eagle or the element of air.</p>
+                        </div>
+                        <div class="direction-gift">
+                            <span class="gift-label">The Gift:</span>
+                            The ability to look ahead, seek vision, and plan for the future.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card reveal">
-                <div class="card-img wind-img"></div>
-                <div class="card-content">
-                    <h3 style="color: var(--sage);">Wind</h3>
-                    <p>The breath of life, bringing unseen currents of creative expression and carrying seeds of hope.</p>
+            
+            <!-- South -->
+            <div class="card card-south reveal">
+                <div class="card-inner">
+                    <div class="card-front" style="background-image: url('images/south_front.webp');">
+                    </div>
+                    <div class="card-back">
+                        <div>
+                            <h3 class="direction-title">South <span class="medicine-badge badge-south">Tobacco</span></h3>
+                            <p class="direction-meaning">Represents summer, youth, growth, and the peak of life.</p>
+                            <p class="direction-focus">Focus on emotion, passion, trust, and connection to the physical body. Associated with the element of fire and the buffalo.</p>
+                        </div>
+                        <div class="direction-gift">
+                            <span class="gift-label">The Gift:</span>
+                            Warmth, passion, and the drive to take action on your intentions.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card reveal">
-                <div class="card-img fire-img"></div>
-                <div class="card-content">
-                    <h3 style="color: var(--ember-clay);">Fire</h3>
-                    <p>Practicing ceremony and good fire, reawakening the ancestral knowledge of the past.</p>
+
+            <!-- West -->
+            <div class="card card-west reveal">
+                <div class="card-inner">
+                    <div class="card-front" style="background-image: url('images/west_front.webp');">
+                    </div>
+                    <div class="card-back">
+                        <div>
+                            <h3 class="direction-title">West <span class="medicine-badge badge-west">Cedar</span></h3>
+                            <p class="direction-meaning">Represents autumn, adulthood, introspection, and the setting sun.</p>
+                            <p class="direction-focus">Focus on physical strength, maturity, inner reflection, and the realm of dreams. Associated with the element of water.</p>
+                        </div>
+                        <div class="direction-gift">
+                            <span class="gift-label">The Gift:</span>
+                            The courage to look within, face the unknown, and find peace in silence.
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="card reveal">
-                <div class="card-img water-img"></div>
-                <div class="card-content">
-                    <h3 style="color: var(--river-blue);">Water</h3>
-                    <p>Flowing in synergy, honoring the clarity and nourishment that sustains our shared work.</p>
+
+            <!-- North -->
+            <div class="card card-north reveal">
+                <div class="card-inner">
+                    <div class="card-front" style="background-image: url('images/north_front.webp');">
+                    </div>
+                    <div class="card-back">
+                        <div>
+                            <h3 class="direction-title">North <span class="medicine-badge badge-north">Sage</span></h3>
+                            <p class="direction-meaning">Represents winter, elders, wisdom, and the completion of the cycle of life.</p>
+                            <p class="direction-focus">Focus on spiritual wisdom, ancestors, and mental balance. Associated with the element of earth, snow, and the white buffalo.</p>
+                        </div>
+                        <div class="direction-gift">
+                            <span class="gift-label">The Gift:</span>
+                            Deep gratitude, wisdom, and the knowledge passed down by ancestors.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
