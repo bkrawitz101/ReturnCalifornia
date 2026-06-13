@@ -1,0 +1,412 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Return California | Tending the Land</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --mist-cream: #F3EFE6;
+            --sage: #8FA287;
+            --sage-dark: #6C7D65;
+            --redwood: #4E5A46;
+            --river-blue: #7EA7B8;
+            --ember-clay: #B86E4B;
+            --bark: #2E312C;
+            --sand: #E8E3D8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--mist-cream);
+            color: var(--bark);
+            line-height: 1.8;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Cormorant Garamond', serif;
+            font-weight: 400;
+            color: var(--redwood);
+            margin-top: 0;
+        }
+
+        /* Navigation */
+        nav {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            transition: background 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(243, 239, 230, 0.95);
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: white;
+            text-decoration: none;
+            transition: color 0.4s;
+        }
+
+        nav.scrolled .logo, nav.scrolled .nav-links a {
+            color: var(--redwood);
+        }
+
+        .nav-links a {
+            color: white;
+            text-decoration: none;
+            margin-left: 30px;
+            font-size: 0.9rem;
+            font-weight: 300;
+            transition: opacity 0.3s;
+        }
+
+        .nav-links a:hover {
+            opacity: 0.7;
+        }
+
+        /* Hero with Parallax */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 20px;
+            background-image: linear-gradient(rgba(46, 49, 44, 0.4), rgba(46, 49, 44, 0.2)), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            position: relative;
+        }
+
+        .hero h1 { 
+            font-size: clamp(3.5rem, 8vw, 6rem); 
+            margin-bottom: 20px; 
+            color: white;
+            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.5s forwards 0.5s ease-out;
+        }
+
+        .hero p { 
+            font-size: clamp(1.2rem, 2.5vw, 1.6rem); 
+            max-width: 600px; 
+            color: white;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.5s forwards 1s ease-out;
+        }
+
+        @keyframes fadeUp {
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Split Section: Image & Text */
+        .split-section {
+            display: flex;
+            flex-wrap: wrap;
+            min-height: 80vh;
+        }
+
+        .split-image {
+            flex: 1 1 50%;
+            min-height: 400px;
+            background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=80');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .split-content {
+            flex: 1 1 50%;
+            padding: 10% 8%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            background: var(--mist-cream);
+        }
+
+        .split-content h2 {
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .split-content p {
+            margin-bottom: 25px;
+            font-size: 1.1rem;
+            color: #4a4d48;
+        }
+
+        /* Elements Section with Images */
+        .elements-wrapper {
+            padding: 100px 5%;
+            background-color: var(--sand);
+        }
+
+        .elements-header {
+            text-align: center;
+            margin-bottom: 70px;
+        }
+
+        .elements-header h2 {
+            font-size: 3rem;
+            margin-bottom: 15px;
+        }
+
+        .elements-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--mist-cream);
+            border-radius: 4px;
+            overflow: hidden;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.03);
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-10px);
+        }
+
+        .card-img {
+            height: 200px;
+            background-size: cover;
+            background-position: center;
+        }
+
+        .earth-img { background-image: url('https://images.unsplash.com/photo-1629196914562-b9e4a8335f49?auto=format&fit=crop&w=600&q=80'); }
+        .wind-img { background-image: url('https://images.unsplash.com/photo-1445264618000-f1e069c5920f?auto=format&fit=crop&w=600&q=80'); }
+        .fire-img { background-image: url('https://images.unsplash.com/photo-1504368560064-07d0f41d248b?auto=format&fit=crop&w=600&q=80'); }
+        .water-img { background-image: url('https://images.unsplash.com/photo-1437482078695-73f5ca6c96e2?auto=format&fit=crop&w=600&q=80'); }
+
+        .card-content {
+            padding: 30px;
+            text-align: center;
+        }
+
+        .card-content h3 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .card-content p {
+            font-size: 0.95rem;
+            color: var(--bark);
+            opacity: 0.8;
+        }
+
+        /* Banner Section */
+        .banner {
+            padding: 120px 20px;
+            text-align: center;
+            background-image: linear-gradient(rgba(143, 162, 135, 0.9), rgba(108, 125, 101, 0.9)), url('https://images.unsplash.com/photo-1473448912268-2022ce9509d8?auto=format&fit=crop&w=1920&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: white;
+        }
+
+        .banner h2 {
+            color: white;
+            font-size: 3rem;
+            margin-bottom: 30px;
+        }
+
+        .banner p {
+            max-width: 700px;
+            margin: 0 auto 40px auto;
+            font-size: 1.2rem;
+            font-weight: 300;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 16px 45px;
+            background-color: var(--mist-cream);
+            color: var(--redwood);
+            text-decoration: none;
+            border-radius: 2px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            letter-spacing: 1px;
+            transition: all 0.4s ease;
+        }
+
+        .btn:hover {
+            background-color: var(--bark);
+            color: var(--mist-cream);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--bark);
+            color: var(--mist-cream);
+            padding: 80px 50px 40px 50px;
+            text-align: center;
+        }
+
+        .footer-logo {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: var(--sage);
+        }
+
+        .footer-text {
+            max-width: 500px;
+            margin: 0 auto 40px auto;
+            font-size: 0.9rem;
+            opacity: 0.7;
+        }
+
+        /* Scroll Reveal Utility */
+        .reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: all 1s ease-out;
+        }
+
+        .reveal.active {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            nav { padding: 20px; }
+            .nav-links { display: none; }
+            .split-section { flex-direction: column; }
+            .split-image { min-height: 300px; }
+            .split-content { padding: 15% 5%; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <a href="#" class="logo">Return California</a>
+        <div class="nav-links">
+            <a href="#mission">Our Mission</a>
+            <a href="#elements">The Elements</a>
+            <a href="#stewardship">Stewardship</a>
+        </div>
+    </nav>
+
+    <div class="hero">
+        <h1>Return California</h1>
+        <p>A living relationship with land, ceremony, and community.</p>
+    </div>
+
+    <section id="mission" class="split-section">
+        <div class="split-content">
+            <h2 class="reveal">Bringing Ancestral Knowledge Forward</h2>
+            <p class="reveal">We are building a community where people come together in a good way to care for the land and all living beings. Rooted in traditional teachings, we live and practice ceremony as a daily relationship with the earth.</p>
+            <p class="reveal">By weaving ancestral wisdom with modern tools, we create pathways for learning, accessibility, and transparency—ensuring the long-term care of the lands entrusted to us.</p>
+        </div>
+        <div class="split-image reveal"></div>
+    </section>
+
+    <section id="elements" class="elements-wrapper">
+        <div class="elements-header reveal">
+            <h2>Honoring the Elements</h2>
+            <p>Walking with respect and learning from the natural world.</p>
+        </div>
+        <div class="elements-grid">
+            <div class="card reveal">
+                <div class="card-img earth-img"></div>
+                <div class="card-content">
+                    <h3 style="color: var(--redwood);">Earth</h3>
+                    <p>Rooted in teachings, tending the soil, and walking with deep respect for the land and animals.</p>
+                </div>
+            </div>
+            <div class="card reveal">
+                <div class="card-img wind-img"></div>
+                <div class="card-content">
+                    <h3 style="color: var(--sage);">Wind</h3>
+                    <p>The breath of life, bringing unseen currents of creative expression and carrying seeds of hope.</p>
+                </div>
+            </div>
+            <div class="card reveal">
+                <div class="card-img fire-img"></div>
+                <div class="card-content">
+                    <h3 style="color: var(--ember-clay);">Fire</h3>
+                    <p>Practicing ceremony and good fire, reawakening the ancestral knowledge of the past.</p>
+                </div>
+            </div>
+            <div class="card reveal">
+                <div class="card-img water-img"></div>
+                <div class="card-content">
+                    <h3 style="color: var(--river-blue);">Water</h3>
+                    <p>Flowing in synergy, honoring the clarity and nourishment that sustains our shared work.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stewardship" class="banner reveal">
+        <h2>Tending the Land</h2>
+        <p>Through stewardship, shared work, and teaching what we have learned, we walk with others in learning how to be in right relationship with the natural world. Our work takes place across many lands, including a 42.7-acre cultural easement held with accountability through community leadership.</p>
+        <a href="#" class="btn">Walk With Us</a>
+    </section>
+
+    <footer>
+        <div class="footer-logo">Return California</div>
+        <p class="footer-text">Building a community where people come together in a good way to care for the land and all living beings.</p>
+        <p style="font-size: 0.8rem; opacity: 0.5;">&copy; 2026 Return California. A 508(c)(1)(a) Private Ministerial Association.</p>
+    </footer>
+
+    <script>
+        // Navbar color change on scroll
+        const navbar = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll reveal animation
+        const reveals = document.querySelectorAll('.reveal');
+        function revealElements() {
+            const windowHeight = window.innerHeight;
+            const elementVisible = 100;
+
+            reveals.forEach(reveal => {
+                const elementTop = reveal.getBoundingClientRect().top;
+                if (elementTop < windowHeight - elementVisible) {
+                    reveal.classList.add('active');
+                }
+            });
+        }
+        window.addEventListener('scroll', revealElements);
+        revealElements(); // Trigger once on load
+    </script>
+</body>
+</html>
