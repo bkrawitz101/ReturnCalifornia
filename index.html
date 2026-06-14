@@ -253,80 +253,9 @@
         }
 
         .card-back {
-            background-color: white;
             transform: rotateY(180deg);
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 1.5rem;
-            overflow-y: auto;
-        }
-
-        .card-east .card-back { border-top: 6px solid var(--east-yellow); }
-        .card-south .card-back { border-top: 6px solid var(--south-red); }
-        .card-west .card-back { 
-            border-top: 6px solid var(--west-black); 
-            background-color: var(--west-black);
-            color: var(--mist-cream);
-        }
-        .card-north .card-back { 
-            border-top: 6px solid var(--bark); 
-            background-color: var(--north-white);
-        }
-
-        .card-west .direction-focus { color: var(--mist-cream); opacity: 0.9; }
-        .card-west .direction-meaning { color: var(--mist-cream); opacity: 0.7; }
-        .card-west .card-back h3 { color: white; }
-
-        .direction-title {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .medicine-badge {
-            font-size: 0.75rem;
-            padding: 0.25rem 0.75rem;
-            border-radius: 999px;
-            font-family: 'Inter', sans-serif;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        .badge-east { background: #FEF08A; color: #854D0E; }
-        .badge-south { background: #FECACA; color: #991B1B; }
-        .badge-west { background: #374151; color: #D1D5DB; }
-        .badge-north { background: #E5E7EB; color: #374151; }
-
-        .direction-meaning {
-            font-style: italic;
-            font-size: 0.9rem;
-            margin-bottom: 0.75rem;
-            color: var(--bark);
-            opacity: 0.8;
-        }
-
-        .direction-focus {
-            font-size: 0.95rem;
-            line-height: 1.5;
-            margin-bottom: 1.25rem;
-            color: var(--bark);
-        }
-
-        .direction-gift {
-            margin-top: auto;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(156, 163, 175, 0.3);
-            font-size: 0.95rem;
-        }
-
-        .gift-label {
-            font-weight: 600;
-            display: block;
-            margin-bottom: 0.25rem;
+            background-size: cover;
+            background-position: center;
         }
 
         /* Banner Section (West - Introspection) */
@@ -456,16 +385,7 @@
                                 </svg>
                             </div>
                     </div>
-                    <div class="card-back">
-                        <div>
-                            <h3 class="direction-title">East <span class="medicine-badge badge-east">Sweetgrass</span></h3>
-                            <p class="direction-meaning">Represents new beginnings, sunrise, spring, and childhood.</p>
-                            <p class="direction-focus">Focus on spiritual awakening, mental clarity, and the breath of life. Often associated with the eagle or the element of air.</p>
-                        </div>
-                        <div class="direction-gift">
-                            <span class="gift-label">The Gift:</span>
-                            The ability to look ahead, seek vision, and plan for the future.
-                        </div>
+                    <div class="card-back" style="background-image: url('images/east_back.webp');">
                     </div>
                 </div>
             </div>
@@ -481,16 +401,7 @@
                                 </svg>
                             </div>
                     </div>
-                    <div class="card-back">
-                        <div>
-                            <h3 class="direction-title">South <span class="medicine-badge badge-south">Tobacco</span></h3>
-                            <p class="direction-meaning">Represents summer, youth, growth, and the peak of life.</p>
-                            <p class="direction-focus">Focus on emotion, passion, trust, and connection to the physical body. Associated with the element of fire and the buffalo.</p>
-                        </div>
-                        <div class="direction-gift">
-                            <span class="gift-label">The Gift:</span>
-                            Warmth, passion, and the drive to take action on your intentions.
-                        </div>
+                    <div class="card-back" style="background-image: url('images/south_back.webp');">
                     </div>
                 </div>
             </div>
@@ -506,16 +417,7 @@
                                 </svg>
                             </div>
                     </div>
-                    <div class="card-back">
-                        <div>
-                            <h3 class="direction-title">West <span class="medicine-badge badge-west">Cedar</span></h3>
-                            <p class="direction-meaning">Represents autumn, adulthood, introspection, and the setting sun.</p>
-                            <p class="direction-focus">Focus on physical strength, maturity, inner reflection, and the realm of dreams. Associated with the element of water.</p>
-                        </div>
-                        <div class="direction-gift">
-                            <span class="gift-label">The Gift:</span>
-                            The courage to look within, face the unknown, and find peace in silence.
-                        </div>
+                    <div class="card-back" style="background-image: url('images/west_back.webp');">
                     </div>
                 </div>
             </div>
@@ -531,16 +433,7 @@
                                 </svg>
                             </div>
                     </div>
-                    <div class="card-back">
-                        <div>
-                            <h3 class="direction-title">North <span class="medicine-badge badge-north">Sage</span></h3>
-                            <p class="direction-meaning">Represents winter, elders, wisdom, and the completion of the cycle of life.</p>
-                            <p class="direction-focus">Focus on spiritual wisdom, ancestors, and mental balance. Associated with the element of earth, snow, and the white buffalo.</p>
-                        </div>
-                        <div class="direction-gift">
-                            <span class="gift-label">The Gift:</span>
-                            Deep gratitude, wisdom, and the knowledge passed down by ancestors.
-                        </div>
+                    <div class="card-back" style="background-image: url('images/north_back.webp');">
                     </div>
                 </div>
             </div>
