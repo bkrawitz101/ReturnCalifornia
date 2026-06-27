@@ -1,491 +1,250 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Return California | Tending the Land</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400&display=swap"
+        rel="stylesheet">
     <style>
         :root {
             --mist-cream: #F3EFE6;
-            --sage: #8FA287;
-            --sage-dark: #6C7D65;
-            --redwood: #4E5A46;
-            --river-blue: #7EA7B8;
-            --ember-clay: #B86E4B;
             --bark: #2E312C;
-            --sand: #E8E3D8;
-            --east-yellow: #FACC15;
-            --south-red: #EF4444;
-            --west-black: #1F2937;
-            --north-white: #F9FAFB;
+            --redwood: #4E5A46;
         }
 
         * {
             box-sizing: border-box;
         }
 
-        body {
+        html, body {
             margin: 0;
             padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
             font-family: 'Inter', sans-serif;
-            background-color: var(--mist-cream);
-            color: var(--bark);
-            line-height: 1.8;
-            overflow-x: hidden;
+            background-color: var(--bark);
+            color: white;
             -webkit-font-smoothing: antialiased;
         }
 
-        h1, h2, h3, h4 {
-            font-family: 'Cormorant Garamond', serif;
-            font-weight: 400;
-            color: var(--redwood);
-            margin-top: 0;
+        /* Background Video */
+        .video-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        #bg-video {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transform: translate(-50%, -50%);
+            opacity: 0;
+            transition: opacity 2s ease-in-out;
+        }
+
+        #bg-video.playing {
+            opacity: 1;
+        }
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(
+                to bottom,
+                rgba(46, 49, 44, 0.6) 0%,
+                rgba(46, 49, 44, 0.4) 50%,
+                rgba(46, 49, 44, 0.7) 100%
+            );
+            z-index: 2;
         }
 
         /* Navigation */
         nav {
-            position: fixed;
+            position: absolute;
             top: 0;
+            left: 0;
             width: 100%;
-            padding: 20px 50px;
+            padding: 40px 60px;
             display: flex;
             justify-content: space-between;
             align-items: center;
-            z-index: 1000;
-            transition: background 0.4s ease;
-        }
-
-        nav.scrolled {
-            background: rgba(243, 239, 230, 0.95);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            z-index: 10;
         }
 
         .logo {
             font-family: 'Cormorant Garamond', serif;
             font-size: 1.5rem;
             color: white;
-            text-decoration: none;
-            transition: color 0.4s;
+            letter-spacing: 1px;
+            font-weight: 400;
         }
 
-        nav.scrolled .logo, nav.scrolled .nav-links a {
-            color: var(--redwood);
-        }
-
-        .nav-links a {
+        .nav-contact {
             color: white;
             text-decoration: none;
-            margin-left: 30px;
             font-size: 0.9rem;
             font-weight: 300;
-            transition: opacity 0.3s;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            border-bottom: 1px solid transparent;
+            transition: all 0.3s ease;
         }
 
-        .nav-links a:hover {
-            opacity: 0.7;
+        .nav-contact:hover {
+            border-bottom: 1px solid white;
+            opacity: 0.8;
         }
 
-        /* Hero with Parallax */
+        /* Hero */
         .hero {
+            position: relative;
+            width: 100%;
             height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 40px 20px;
+            z-index: 5;
+        }
+
+        .hero-content {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            text-align: center;
-            padding: 0 20px;
-            background-image: linear-gradient(rgba(46, 49, 44, 0.4), rgba(46, 49, 44, 0.2)), url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            position: relative;
+            flex-grow: 1;
         }
 
-        .hero h1 { 
-            font-size: clamp(3.5rem, 8vw, 6rem); 
-            margin-bottom: 20px; 
+        .hero h1 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(3.5rem, 8vw, 6.5rem);
+            margin: 0 0 20px 0;
             color: white;
-            text-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            text-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+            font-weight: 400;
             opacity: 0;
             transform: translateY(30px);
             animation: fadeUp 1.5s forwards 0.5s ease-out;
         }
 
-        .hero p { 
-            font-size: clamp(1.2rem, 2.5vw, 1.6rem); 
-            max-width: 600px; 
-            color: white;
-            font-weight: 300;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.2);
+        .hero-tagline {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+            font-style: italic;
+            color: var(--mist-cream);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin: 0 0 25px 0;
             opacity: 0;
             transform: translateY(30px);
-            animation: fadeUp 1.5s forwards 1s ease-out;
+            animation: fadeUp 1.5s forwards 0.8s ease-out;
+        }
+
+        .hero-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.4rem);
+            max-width: 650px;
+            color: white;
+            font-weight: 300;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            margin: 0;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1.5s forwards 1.1s ease-out;
+        }
+
+        .hero-footer {
+            opacity: 0;
+            animation: fadeIn 2s forwards 1.5s ease-out;
+        }
+
+        .hero-footer p {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.4);
+            margin: 0;
+            letter-spacing: 0.5px;
         }
 
         @keyframes fadeUp {
-            to { opacity: 1; transform: translateY(0); }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
-        /* Split Section: Image & Text */
-        .split-section {
-            display: flex;
-            flex-wrap: wrap;
-            min-height: 80vh;
-        }
-
-        .split-image {
-            flex: 1 1 50%;
-            min-height: 400px;
-            background-image: url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1000&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .split-content {
-            flex: 1 1 50%;
-            padding: 10% 8%;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            background: var(--mist-cream);
-        }
-
-        .split-content h2 {
-            font-size: 3rem;
-            margin-bottom: 30px;
-        }
-
-        .split-content p {
-            margin-bottom: 25px;
-            font-size: 1.1rem;
-            color: #4a4d48;
-        }
-
-        /* Elements Section with Images */
-        .elements-wrapper {
-            padding: 100px 5%;
-            background-color: var(--sand);
-        }
-
-        .elements-header {
-            text-align: center;
-            margin-bottom: 70px;
-        }
-
-        .elements-header h2 {
-            font-size: 3rem;
-            margin-bottom: 15px;
-        }
-
-        .elements-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .card {
-            background-color: transparent;
-            perspective: 1000px;
-            aspect-ratio: 9 / 16;
-            width: 100%;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
-        }
-
-        .card-inner {
-            position: relative;
-            width: 100%;
-            height: 100%;
-            text-align: left;
-            transition: transform 0.8s;
-            transform-style: preserve-3d;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-        }
-
-        .card.flipped .card-inner {
-            transform: rotateY(180deg);
-            box-shadow: 0 15px 25px -5px rgba(0, 0, 0, 0.2);
-        }
-
-        .card-front, .card-back {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            backface-visibility: hidden;
-            border-radius: 8px;
-        }
-
-        .card-front {
-            background-color: var(--bark);
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            background-size: cover;
-            background-position: center;
-            overflow: hidden;
-        }
-
-        .flip-indicator {
-            position: absolute;
-            bottom: 12px;
-            right: 12px;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border-radius: 50%;
-            width: 36px;
-            height: 36px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            z-index: 10;
-            backdrop-filter: blur(4px);
-        }
-        
-        .flip-indicator svg {
-            width: 18px;
-            height: 18px;
-        }
-
-        .card-back {
-            transform: rotateY(180deg);
-            background-size: cover;
-            background-position: center;
-        }
-
-        /* Banner Section (West - Introspection) */
-        .banner {
-            padding: 120px 20px;
-            text-align: center;
-            background-image: linear-gradient(rgba(31, 41, 55, 0.9), rgba(31, 41, 55, 0.9)), url('https://images.unsplash.com/photo-1448375240586-882707db888b?auto=format&fit=crop&w=1920&q=80');
-            background-size: cover;
-            background-position: center;
-            background-attachment: fixed;
-            color: var(--mist-cream);
-        }
-
-        .banner h2 {
-            color: white;
-            font-size: 3rem;
-            margin-bottom: 30px;
-        }
-
-        .banner p {
-            max-width: 700px;
-            margin: 0 auto 40px auto;
-            font-size: 1.2rem;
-            font-weight: 300;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 16px 45px;
-            background-color: var(--mist-cream);
-            color: var(--redwood);
-            text-decoration: none;
-            border-radius: 2px;
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 1.2rem;
-            letter-spacing: 1px;
-            transition: all 0.4s ease;
-        }
-
-        .btn:hover {
-            background-color: var(--bark);
-            color: var(--mist-cream);
-        }
-
-        /* Footer (North - Wisdom, Completion) */
-        footer {
-            background: var(--north-white);
-            color: var(--bark);
-            padding: 80px 50px 40px 50px;
-            text-align: center;
-        }
-
-        .footer-logo {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: var(--redwood);
-        }
-
-        .footer-text {
-            max-width: 500px;
-            margin: 0 auto 40px auto;
-            font-size: 0.9rem;
-            opacity: 0.7;
-        }
-
-        /* Scroll Reveal Utility */
-        .reveal {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: all 1s ease-out;
-        }
-
-        .reveal.active {
-            opacity: 1;
-            transform: translateY(0);
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
         }
 
         @media (max-width: 768px) {
-            nav { padding: 20px; }
-            .nav-links { display: none; }
-            .split-section { flex-direction: column; }
-            .split-image { min-height: 300px; }
-            .split-content { padding: 15% 5%; text-align: center; }
+            nav {
+                padding: 30px 20px;
+            }
+            .hero {
+                padding-top: 100px;
+            }
         }
     </style>
 </head>
+
 <body>
 
-    <nav id="navbar">
-        <a href="#" class="logo">Return California</a>
-        <div class="nav-links">
-            <a href="#mission">Our Mission</a>
-            <a href="#directions">The Directions</a>
-            <a href="#stewardship">Stewardship</a>
-        </div>
-    </nav>
-
-    <div class="hero">
-        <h1>Return California</h1>
-        <p>A living relationship with land, ceremony, and community.</p>
+    <!-- Background Video -->
+    <div class="video-container">
+        <video autoplay muted loop playsinline id="bg-video">
+            <source src="images/sunrise.mp4" type="video/mp4">
+        </video>
+        <div class="video-overlay"></div>
     </div>
 
-    <section id="mission" class="split-section">
-        <div class="split-content">
-            <h2 class="reveal">Bringing Ancestral Knowledge Forward</h2>
-            <p class="reveal">We are building a community where people come together in a good way to care for the land and all living beings. Rooted in traditional teachings, we live and practice ceremony as a daily relationship with the earth.</p>
-            <p class="reveal">By weaving ancestral wisdom with modern tools, we create pathways for learning, accessibility, and transparency—ensuring the long-term care of the lands entrusted to us.</p>
+    <!-- Minimal Nav -->
+    <nav>
+        <div class="logo">Return California</div>
+        <a href="mailto:info@returncalifornia.org" class="nav-contact">Walk With Us</a>
+    </nav>
+
+    <!-- Main Content -->
+    <main class="hero">
+        <div class="hero-content">
+            <h1>Return California</h1>
+            <p class="hero-tagline">When we wake, we are in ceremony</p>
+            <p class="hero-subtitle">A living relationship with Earth, Air, Water and Fire.</p>
         </div>
-        <div class="split-image reveal"></div>
-    </section>
-
-    <section id="directions" class="elements-wrapper">
-        <div class="elements-header reveal">
-            <h2>Walk in Harmony</h2>
-            <p>We must learn from all four directions to find our center and walk in right relationship.</p>
+        <div class="hero-footer">
+            <p>&copy; 2026 Return California. A 508(c)(1)(a) Private Ministerial Association.</p>
         </div>
-        <div class="elements-grid">
-            <!-- East -->
-            <div class="card card-east reveal">
-                <div class="card-inner">
-                    <div class="card-front" style="background-image: url('images/east_front.webp');">
-                            <div class="flip-indicator" aria-label="Tap to flip">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-                                    <path d="M21 3v5h-5"></path>
-                                </svg>
-                            </div>
-                    </div>
-                    <div class="card-back" style="background-image: url('images/east_back.webp');">
-                    </div>
-                </div>
-            </div>
-            
-            <!-- South -->
-            <div class="card card-south reveal">
-                <div class="card-inner">
-                    <div class="card-front" style="background-image: url('images/south_front.webp');">
-                            <div class="flip-indicator" aria-label="Tap to flip">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-                                    <path d="M21 3v5h-5"></path>
-                                </svg>
-                            </div>
-                    </div>
-                    <div class="card-back" style="background-image: url('images/south_back.webp');">
-                    </div>
-                </div>
-            </div>
-
-            <!-- West -->
-            <div class="card card-west reveal">
-                <div class="card-inner">
-                    <div class="card-front" style="background-image: url('images/west_front.webp');">
-                            <div class="flip-indicator" aria-label="Tap to flip">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-                                    <path d="M21 3v5h-5"></path>
-                                </svg>
-                            </div>
-                    </div>
-                    <div class="card-back" style="background-image: url('images/west_back.webp');">
-                    </div>
-                </div>
-            </div>
-
-            <!-- North -->
-            <div class="card card-north reveal">
-                <div class="card-inner">
-                    <div class="card-front" style="background-image: url('images/north_front.webp');">
-                            <div class="flip-indicator" aria-label="Tap to flip">
-                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                                    <path d="M21 12a9 9 0 1 1-9-9c2.52 0 4.93 1 6.74 2.74L21 8"></path>
-                                    <path d="M21 3v5h-5"></path>
-                                </svg>
-                            </div>
-                    </div>
-                    <div class="card-back" style="background-image: url('images/north_back.webp');">
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <section id="stewardship" class="banner reveal">
-        <h2>Tending the Land</h2>
-        <p>Through stewardship, shared work, and teaching what we have learned, we walk with others in learning how to be in right relationship with the natural world. Our work takes place across many lands, including a 42.7-acre cultural easement held with accountability through community leadership.</p>
-        <a href="#" class="btn">Walk With Us</a>
-    </section>
-
-    <footer>
-        <div class="footer-logo">Return California</div>
-        <p class="footer-text">Building a community where people come together in a good way to care for the land and all living beings.</p>
-        <p style="font-size: 0.8rem; opacity: 0.5;">&copy; 2026 Return California. A 508(c)(1)(a) Private Ministerial Association.</p>
-    </footer>
+    </main>
 
     <script>
-        // Navbar color change on scroll
-        const navbar = document.getElementById('navbar');
-        window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                navbar.classList.add('scrolled');
+        // Fade in background video once it is playing to avoid harsh flashing
+        const video = document.getElementById('bg-video');
+        if (video) {
+            if (video.readyState >= 3) {
+                video.classList.add('playing');
             } else {
-                navbar.classList.remove('scrolled');
+                video.addEventListener('playing', () => {
+                    video.classList.add('playing');
+                });
             }
-        });
-
-        // Scroll reveal animation
-        const reveals = document.querySelectorAll('.reveal');
-        function revealElements() {
-            const windowHeight = window.innerHeight;
-            const elementVisible = 100;
-
-            reveals.forEach(reveal => {
-                const elementTop = reveal.getBoundingClientRect().top;
-                if (elementTop < windowHeight - elementVisible) {
-                    reveal.classList.add('active');
-                }
-            });
         }
-        window.addEventListener('scroll', revealElements);
-        revealElements(); // Trigger once on load
-
-        // Mobile Card Flip Interactivity
-        const cards = document.querySelectorAll('.card');
-        cards.forEach(card => {
-            card.addEventListener('click', function() {
-                this.classList.toggle('flipped');
-            });
-        });
     </script>
 </body>
+
 </html>
