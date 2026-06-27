@@ -93,18 +93,22 @@
             font-weight: 400;
         }
 
-        .nav-contact {
+        .nav-contact-btn {
+            background: none;
+            border: none;
             color: white;
-            text-decoration: none;
+            font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
             font-weight: 300;
             letter-spacing: 1.5px;
             text-transform: uppercase;
             border-bottom: 1px solid transparent;
+            padding: 0;
+            cursor: pointer;
             transition: all 0.3s ease;
         }
 
-        .nav-contact:hover {
+        .nav-contact-btn:hover {
             border-bottom: 1px solid white;
             opacity: 0.8;
         }
@@ -222,6 +226,188 @@
                 padding-top: 100px;
             }
         }
+
+        /* Modal Styles */
+        .modal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(46, 49, 44, 0.4);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            z-index: 100;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .modal.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        .modal-content {
+            background: rgba(46, 49, 44, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            padding: 40px;
+            width: 90%;
+            max-width: 500px;
+            position: relative;
+            transform: scale(0.9);
+            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            color: white;
+            text-align: left;
+        }
+
+        .modal.active .modal-content {
+            transform: scale(1);
+        }
+
+        .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 2rem;
+            cursor: pointer;
+            line-height: 1;
+            padding: 0;
+            transition: color 0.3s;
+        }
+
+        .close-btn:hover {
+            color: white;
+        }
+
+        .modal-content h2 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 2.2rem;
+            margin-top: 0;
+            margin-bottom: 10px;
+            color: white;
+        }
+
+        .modal-intro {
+            font-size: 0.95rem;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            line-height: 1.5;
+        }
+
+        /* Form Controls */
+        .form-group {
+            margin-bottom: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .form-group label {
+            font-size: 0.85rem;
+            font-weight: 300;
+            letter-spacing: 0.5px;
+            color: var(--mist-cream);
+        }
+
+        .form-group input,
+        .form-group textarea {
+            background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 4px;
+            padding: 12px 16px;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            transition: all 0.3s;
+            outline: none;
+            width: 100%;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: white;
+            box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.1);
+        }
+
+        .form-group textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+
+        /* Submit Button */
+        .submit-btn {
+            width: 100%;
+            padding: 14px;
+            background: var(--mist-cream);
+            color: var(--bark);
+            border: none;
+            border-radius: 4px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .submit-btn:hover {
+            background: white;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Loading Spinner */
+        .loading-spinner {
+            display: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid rgba(0, 0, 0, 0.1);
+            border-radius: 50%;
+            border-top-color: var(--bark);
+            animation: spin 0.8s linear infinite;
+            margin-left: 10px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Form Result States */
+        .form-result {
+            margin-top: 20px;
+            text-align: center;
+            font-size: 0.95rem;
+            min-height: 24px;
+        }
+
+        .form-result.success {
+            color: #86efac;
+            font-weight: 300;
+        }
+
+        .form-result.error {
+            color: #fca5a5;
+            font-weight: 300;
+        }
     </style>
 </head>
 
@@ -238,7 +424,7 @@
     <!-- Minimal Nav -->
     <nav>
         <div class="logo">Return California</div>
-        <a href="mailto:info@returnca.com" class="nav-contact">Walk With Us</a>
+        <button id="open-modal-btn" class="nav-contact-btn">Walk With Us</button>
     </nav>
 
     <!-- Main Content -->
@@ -280,6 +466,42 @@
         </div>
     </main>
 
+    <!-- Contact Modal -->
+    <div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+        <div class="modal-content">
+            <button class="close-btn" id="close-modal" aria-label="Close modal">&times;</button>
+            <h2 id="modal-title">Walk With Us</h2>
+            <p class="modal-intro">Leave your name and email, and let us know how you would like to connect.</p>
+            
+            <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
+                <input type="hidden" name="access_key" value="852724f4-d380-4417-baad-17473a198bc5">
+                <input type="checkbox" name="botcheck" class="hidden-bot" style="display: none;">
+                
+                <div class="form-group">
+                    <label for="form-name">Name</label>
+                    <input type="text" id="form-name" name="name" required placeholder="Your name">
+                </div>
+                
+                <div class="form-group">
+                    <label for="form-email">Email</label>
+                    <input type="email" id="form-email" name="email" required placeholder="Your email address">
+                </div>
+                
+                <div class="form-group">
+                    <label for="form-message">Message</label>
+                    <textarea id="form-message" name="message" required placeholder="How would you like to connect?"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn" id="submit-btn">
+                    <span>Send Message</span>
+                    <span class="loading-spinner"></span>
+                </button>
+            </form>
+            
+            <div id="form-result" class="form-result"></div>
+        </div>
+    </div>
+
     <script>
         // Fade in background video once it is playing to avoid harsh flashing
         const video = document.getElementById('bg-video');
@@ -291,6 +513,109 @@
                     video.classList.add('playing');
                 });
             }
+        }
+
+        // Modal Elements
+        const modal = document.getElementById('contact-modal');
+        const openBtn = document.getElementById('open-modal-btn');
+        const closeBtn = document.getElementById('close-modal');
+
+        const openModal = () => {
+            if (modal) {
+                modal.classList.add('active');
+                modal.setAttribute('aria-hidden', 'false');
+                document.getElementById('form-name').focus();
+            }
+        };
+
+        const closeModal = () => {
+            if (modal) {
+                modal.classList.remove('active');
+                modal.setAttribute('aria-hidden', 'true');
+            }
+        };
+
+        if (openBtn) {
+            openBtn.addEventListener('click', openModal);
+        }
+
+        if (closeBtn) {
+            closeBtn.addEventListener('click', closeModal);
+        }
+
+        if (modal) {
+            modal.addEventListener('click', (e) => {
+                if (e.target === modal) {
+                    closeModal();
+                }
+            });
+        }
+
+        window.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
+        // Form submission via Web3Forms AJAX
+        const form = document.getElementById('contact-form');
+        const result = document.getElementById('form-result');
+        const submitBtn = document.getElementById('submit-btn');
+        const spinner = submitBtn ? submitBtn.querySelector('.loading-spinner') : null;
+        const btnText = submitBtn ? submitBtn.querySelector('span') : null;
+
+        if (form && result && submitBtn) {
+            form.addEventListener('submit', function (e) {
+                e.preventDefault();
+                
+                // Show loading state
+                submitBtn.disabled = true;
+                if (spinner) spinner.style.display = 'inline-block';
+                if (btnText) btnText.textContent = 'Sending...';
+                result.className = 'form-result';
+                result.textContent = '';
+
+                const formData = new FormData(form);
+                const object = Object.fromEntries(formData);
+                const json = JSON.stringify(object);
+
+                fetch('https://api.web3forms.com/submit', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json'
+                    },
+                    body: json
+                })
+                .then(async (response) => {
+                    let json = await response.json();
+                    if (response.status == 200) {
+                        result.className = 'form-result success';
+                        result.textContent = 'Thank you! We will walk with you soon.';
+                        form.reset();
+                        // Close modal after a short delay
+                        setTimeout(() => {
+                            closeModal();
+                            result.textContent = '';
+                            result.className = 'form-result';
+                        }, 2500);
+                    } else {
+                        result.className = 'form-result error';
+                        result.textContent = json.message || 'Something went wrong. Please try again.';
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                    result.className = 'form-result error';
+                    result.textContent = 'Network error. Please try again later.';
+                })
+                .then(() => {
+                    // Reset button state
+                    submitBtn.disabled = false;
+                    if (spinner) spinner.style.display = 'none';
+                    if (btnText) btnText.textContent = 'Send Message';
+                });
+            });
         }
     </script>
 </body>
