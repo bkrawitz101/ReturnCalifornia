@@ -576,12 +576,48 @@
         // Fade in background video once it is playing to avoid harsh flashing
         const video = document.getElementById('bg-video');
         if (video) {
+            // Force properties via JS to satisfy strict Safari autoplay rules
+            video.muted = true;
+            video.defaultMuted = true;
+            video.playsInline = true;
+
+            const startVideo = () => {
+                video.play()
+                    .then(() => {
+                        video.classList.add('playing');
+                    })
+                    .catch((err) => {
+                        console.log("Autoplay prevented by Safari/browser policies. Waiting for interaction...", err);
+                        
+                        // Fallback: Start video on first user interaction
+                        const forcePlay = () => {
+                            video.play().then(() => {
+                                video.classList.add('playing');
+                                cleanupInteractionListeners();
+                            }).catch(e => console.log("Failed to play on interaction:", e));
+                        };
+
+                        const cleanupInteractionListeners = () => {
+                            document.removeEventListener('click', forcePlay);
+                            document.removeEventListener('touchstart', forcePlay);
+                            document.removeEventListener('keydown', forcePlay);
+                            document.removeEventListener('wheel', forcePlay);
+                        };
+
+                        document.addEventListener('click', forcePlay);
+                        document.addEventListener('touchstart', forcePlay);
+                        document.addEventListener('keydown', forcePlay);
+                        document.addEventListener('wheel', forcePlay);
+                    });
+            };
+
+            // Attempt play immediately, when metadata is loaded, or when it can play
             if (video.readyState >= 3) {
-                video.classList.add('playing');
+                startVideo();
             } else {
-                video.addEventListener('playing', () => {
-                    video.classList.add('playing');
-                });
+                video.addEventListener('canplay', startVideo);
+                // Safari fallback: trigger start attempt immediately regardless
+                startVideo();
             }
         }
 
