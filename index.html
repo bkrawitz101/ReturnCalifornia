@@ -574,52 +574,42 @@
         // Fade in background video once it is playing to avoid harsh flashing
         const video = document.getElementById('bg-video');
         if (video) {
-            // Force properties via JS to satisfy strict Safari autoplay rules
-            video.muted = true;
-            video.defaultMuted = true;
-            video.playsInline = true;
-            
-            // Force source reload to apply properties for strict browsers
-            video.load();
-
-            const startVideo = () => {
-                video.play()
-                    .then(() => {
-                        video.classList.add('playing');
-                    })
-                    .catch((err) => {
-                        console.log("Autoplay prevented by Safari/browser policies. Waiting for interaction...", err);
-                        
-                        // Fallback: Start video on first user interaction
-                        const forcePlay = () => {
-                            video.play().then(() => {
-                                video.classList.add('playing');
-                                cleanupInteractionListeners();
-                            }).catch(e => console.log("Failed to play on interaction:", e));
-                        };
-
-                        const cleanupInteractionListeners = () => {
-                            document.removeEventListener('click', forcePlay);
-                            document.removeEventListener('touchstart', forcePlay);
-                            document.removeEventListener('keydown', forcePlay);
-                            document.removeEventListener('wheel', forcePlay);
-                        };
-
-                        document.addEventListener('click', forcePlay);
-                        document.addEventListener('touchstart', forcePlay);
-                        document.addEventListener('keydown', forcePlay);
-                        document.addEventListener('wheel', forcePlay);
-                    });
+            const handlePlaying = () => {
+                video.classList.add('playing');
             };
 
-            // Attempt play immediately, when metadata is loaded, or when it can play
-            if (video.readyState >= 3) {
-                startVideo();
+            // If the video is already playing natively, register it immediately
+            if (!video.paused) {
+                handlePlaying();
             } else {
-                video.addEventListener('canplay', startVideo);
-                // Safari fallback: trigger start attempt immediately regardless
-                startVideo();
+                video.addEventListener('playing', handlePlaying);
             }
+
+            // Fallback: If native HTML autoplay is blocked after 1 second, wait for user interaction to trigger it
+            setTimeout(() => {
+                if (video.paused) {
+                    console.log("Native autoplay was blocked. Registering user gesture interaction listeners...");
+                    
+                    const forcePlay = () => {
+                        video.play().then(() => {
+                            handlePlaying();
+                            cleanupListeners();
+                        }).catch(e => console.log("Failed to play video on user gesture:", e));
+                    };
+
+                    const cleanupListeners = () => {
+                        document.removeEventListener('click', forcePlay);
+                        document.removeEventListener('touchstart', forcePlay);
+                        document.removeEventListener('keydown', forcePlay);
+                        document.removeEventListener('wheel', forcePlay);
+                    };
+
+                    document.addEventListener('click', forcePlay);
+                    document.addEventListener('touchstart', forcePlay);
+                    document.addEventListener('keydown', forcePlay);
+                    document.addEventListener('wheel', forcePlay);
+                }
+            }, 1000);
         }
 
         // Contact Modal Elements
