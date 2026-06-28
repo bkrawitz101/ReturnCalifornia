@@ -97,20 +97,57 @@
             background: none;
             border: none;
             color: white;
+            padding: 0;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .bear-paw-button-svg,
+        .bear-claw-button-svg {
+            width: 105px;
+            height: auto;
+            stroke: rgba(255, 255, 255, 0.65);
+            stroke-width: 1.2;
+            fill: none;
+            stroke-linecap: round;
+            stroke-linejoin: round;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .paw-pad-path {
+            fill: rgba(255, 255, 255, 0.04);
+            transition: fill 0.3s, stroke 0.3s;
+        }
+
+        .nav-contact-text {
             font-family: 'Inter', sans-serif;
             font-size: 0.9rem;
             font-weight: 300;
             letter-spacing: 1.5px;
             text-transform: uppercase;
+            color: rgba(255, 255, 255, 0.75);
             border-bottom: 1px solid transparent;
-            padding: 0;
-            cursor: pointer;
             transition: all 0.3s ease;
+            padding-bottom: 2px;
         }
 
-        .nav-contact-btn:hover {
+        .nav-contact-btn:hover .bear-paw-button-svg,
+        .nav-contact-btn:hover .bear-claw-button-svg {
+            transform: scale(1.08) translateY(-2px);
+            stroke: white;
+        }
+
+        .nav-contact-btn:hover .paw-pad-path {
+            fill: rgba(255, 255, 255, 0.12);
+        }
+
+        .nav-contact-btn:hover .nav-contact-text {
+            color: white;
             border-bottom: 1px solid white;
-            opacity: 0.8;
         }
 
         /* Hero */
@@ -410,6 +447,29 @@
             color: #fca5a5;
             font-weight: 300;
         }
+
+        /* Intention Modal Body Styles */
+        .intention-body {
+            margin-top: 25px;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.98rem;
+            line-height: 1.7;
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .intention-body h3 {
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.5rem;
+            color: var(--mist-cream);
+            margin-bottom: 15px;
+            font-weight: 400;
+            letter-spacing: 0.5px;
+        }
+
+        .intention-body p {
+            margin-bottom: 15px;
+        }
     </style>
 </head>
 
@@ -425,8 +485,51 @@
 
     <!-- Minimal Nav -->
     <nav>
+        <button id="open-intention-btn" class="nav-contact-btn" aria-label="Our Intention">
+            <svg class="bear-paw-button-svg" viewBox="0 0 160 106" aria-hidden="true">
+                <!-- Main pad -->
+                <path class="paw-pad-path" d="M 35,80 C 35,105 125,105 125,80 C 125,62 105,53 80,53 C 55,53 35,62 35,80 Z" />
+                
+                <!-- Toes -->
+                <circle cx="25" cy="48" r="6" />
+                <circle cx="50" cy="28" r="7.5" />
+                <circle cx="80" cy="22" r="8.5" />
+                <circle cx="110" cy="28" r="7.5" />
+                <circle cx="135" cy="48" r="6" />
+                
+                <!-- Claws -->
+                <path d="M 25,42 L 20,30" />
+                <path d="M 50,20.5 L 47,8" />
+                <path d="M 80,13.5 L 80,1" />
+                <path d="M 110,20.5 L 113,8" />
+                <path d="M 135,42 L 140,30" />
+            </svg>
+            <span class="nav-contact-text">Our Intention</span>
+        </button>
+
         <div class="logo">Return California</div>
-        <button id="open-modal-btn" class="nav-contact-btn">Walk With Us</button>
+
+        <button id="open-modal-btn" class="nav-contact-btn" aria-label="Walk With Us">
+            <svg class="bear-paw-button-svg" viewBox="0 0 160 106" aria-hidden="true">
+                <!-- Main pad -->
+                <path class="paw-pad-path" d="M 35,80 C 35,105 125,105 125,80 C 125,62 105,53 80,53 C 55,53 35,62 35,80 Z" />
+                
+                <!-- Toes -->
+                <circle cx="25" cy="48" r="6" />
+                <circle cx="50" cy="28" r="7.5" />
+                <circle cx="80" cy="22" r="8.5" />
+                <circle cx="110" cy="28" r="7.5" />
+                <circle cx="135" cy="48" r="6" />
+                
+                <!-- Claws -->
+                <path d="M 25,42 L 20,30" />
+                <path d="M 50,20.5 L 47,8" />
+                <path d="M 80,13.5 L 80,1" />
+                <path d="M 110,20.5 L 113,8" />
+                <path d="M 135,42 L 140,30" />
+            </svg>
+            <span class="nav-contact-text">Walk With Us</span>
+        </button>
     </nav>
 
     <!-- Main Content -->
@@ -435,13 +538,6 @@
             <h1>Return California</h1>
             <p class="hero-tagline">When we wake, we are in ceremony</p>
             <div class="hero-poem">
-                <div class="poem-line">
-                    <svg class="element-icon" viewBox="0 0 24 24" aria-hidden="true">
-                        <polygon points="12,20 4,4 20,4" />
-                        <line x1="6" y1="12" x2="18" y2="12" />
-                    </svg>
-                    <span>The earth grounds us.</span>
-                </div>
                 <div class="poem-line">
                     <svg class="element-icon" viewBox="0 0 24 24" aria-hidden="true">
                         <polygon points="12,20 4,4 20,4" />
@@ -456,6 +552,13 @@
                 </div>
                 <div class="poem-line">
                     <svg class="element-icon" viewBox="0 0 24 24" aria-hidden="true">
+                        <polygon points="12,20 4,4 20,4" />
+                        <line x1="6" y1="12" x2="18" y2="12" />
+                    </svg>
+                    <span>The earth grounds us.</span>
+                </div>
+                <div class="poem-line">
+                    <svg class="element-icon" viewBox="0 0 24 24" aria-hidden="true">
                         <polygon points="12,4 4,20 20,20" />
                         <line x1="6" y1="12" x2="18" y2="12" />
                     </svg>
@@ -467,6 +570,21 @@
             <p>&copy; 2026 Return California. A 508(c)PMA</p>
         </div>
     </main>
+
+    <!-- Intention Modal -->
+    <div id="intention-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="intention-title">
+        <div class="modal-content" style="max-height: 85vh; overflow-y: auto;">
+            <button class="close-btn" id="close-intention" aria-label="Close modal">&times;</button>
+            <h2 id="intention-title">Our Intention</h2>
+            <div class="intention-body">
+                <p>Return California is building a community where people come together in a good way to care for the land and all living beings, bringing ancestral knowledge forward to meet the needs of today.</p>
+                <p>Rooted in those teachings, we live and practice ceremony as a daily relationship with the earth—honoring the lessons learned from the elements, tending the land, and walking with respect.</p>
+                <p>Through stewardship, shared work, and teaching what we have learned through this work, we walk with others in learning how to be in right relationship with the natural world.</p>
+                <p>We weave ancestral knowledge with modern tools, creating pathways for learning, accessibility, transparency, and the long-term care of the lands entrusted to us.</p>
+                <p>Our work takes place across many lands, including a 42.7-acre cultural easement, all held with accountability through community leadership.</p>
+            </div>
+        </div>
+    </div>
 
     <!-- Contact Modal -->
     <div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
@@ -518,7 +636,7 @@
             }
         }
 
-        // Modal Elements
+        // Contact Modal Elements
         const modal = document.getElementById('contact-modal');
         const openBtn = document.getElementById('open-modal-btn');
         const closeBtn = document.getElementById('close-modal');
@@ -538,25 +656,42 @@
             }
         };
 
-        if (openBtn) {
-            openBtn.addEventListener('click', openModal);
-        }
+        if (openBtn) openBtn.addEventListener('click', openModal);
+        if (closeBtn) closeBtn.addEventListener('click', closeModal);
 
-        if (closeBtn) {
-            closeBtn.addEventListener('click', closeModal);
-        }
+        // Intention Modal Elements
+        const intentionModal = document.getElementById('intention-modal');
+        const openIntentionBtn = document.getElementById('open-intention-btn');
+        const closeIntentionBtn = document.getElementById('close-intention');
 
-        if (modal) {
-            modal.addEventListener('click', (e) => {
-                if (e.target === modal) {
-                    closeModal();
-                }
-            });
-        }
+        const openIntention = () => {
+            if (intentionModal) {
+                intentionModal.classList.add('active');
+                intentionModal.setAttribute('aria-hidden', 'false');
+            }
+        };
 
+        const closeIntention = () => {
+            if (intentionModal) {
+                intentionModal.classList.remove('active');
+                intentionModal.setAttribute('aria-hidden', 'true');
+            }
+        };
+
+        if (openIntentionBtn) openIntentionBtn.addEventListener('click', openIntention);
+        if (closeIntentionBtn) closeIntentionBtn.addEventListener('click', closeIntention);
+
+        // Close either modal on clicking outside content
+        window.addEventListener('click', (e) => {
+            if (e.target === modal) closeModal();
+            if (e.target === intentionModal) closeIntention();
+        });
+
+        // Close either modal on Escape key
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape' && modal && modal.classList.contains('active')) {
-                closeModal();
+            if (e.key === 'Escape') {
+                if (modal && modal.classList.contains('active')) closeModal();
+                if (intentionModal && intentionModal.classList.contains('active')) closeIntention();
             }
         });
 
