@@ -462,9 +462,7 @@
 
     <!-- Background Video -->
     <div class="video-container">
-        <video autoplay muted loop playsinline id="bg-video">
-            <source src="images/sunrise.mp4" type="video/mp4">
-        </video>
+        <video autoplay muted loop playsinline id="bg-video" src="images/sunrise.mp4" type="video/mp4" preload="auto"></video>
         <div class="video-overlay"></div>
     </div>
 
@@ -580,6 +578,9 @@
             video.muted = true;
             video.defaultMuted = true;
             video.playsInline = true;
+            
+            // Force source reload to apply properties for strict browsers
+            video.load();
 
             const startVideo = () => {
                 video.play()
