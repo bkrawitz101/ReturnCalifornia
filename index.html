@@ -388,7 +388,9 @@
         }
 
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            to {
+                transform: rotate(360deg);
+            }
         }
 
         /* Form Result States */
@@ -431,7 +433,7 @@
     <main class="hero">
         <div class="hero-content">
             <h1>Return California</h1>
-            <p class="hero-tagline">When we awake, we are in ceremony</p>
+            <p class="hero-tagline">When we wake, we are in ceremony</p>
             <div class="hero-poem">
                 <div class="poem-line">
                     <svg class="element-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -472,32 +474,33 @@
             <button class="close-btn" id="close-modal" aria-label="Close modal">&times;</button>
             <h2 id="modal-title">Walk With Us</h2>
             <p class="modal-intro">Leave your name and email, and let us know how you would like to connect.</p>
-            
+
             <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
                 <input type="hidden" name="access_key" value="852724f4-d380-4417-baad-17473a198bc5">
                 <input type="checkbox" name="botcheck" class="hidden-bot" style="display: none;">
-                
+
                 <div class="form-group">
                     <label for="form-name">Name</label>
                     <input type="text" id="form-name" name="name" required placeholder="Your name">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="form-email">Email</label>
                     <input type="email" id="form-email" name="email" required placeholder="Your email address">
                 </div>
-                
+
                 <div class="form-group">
                     <label for="form-message">Message</label>
-                    <textarea id="form-message" name="message" required placeholder="How would you like to connect?"></textarea>
+                    <textarea id="form-message" name="message" required
+                        placeholder="How would you like to connect?"></textarea>
                 </div>
-                
+
                 <button type="submit" class="submit-btn" id="submit-btn">
                     <span>Send Message</span>
                     <span class="loading-spinner"></span>
                 </button>
             </form>
-            
+
             <div id="form-result" class="form-result"></div>
         </div>
     </div>
@@ -567,7 +570,7 @@
         if (form && result && submitBtn) {
             form.addEventListener('submit', function (e) {
                 e.preventDefault();
-                
+
                 // Show loading state
                 submitBtn.disabled = true;
                 if (spinner) spinner.style.display = 'inline-block';
@@ -587,34 +590,34 @@
                     },
                     body: json
                 })
-                .then(async (response) => {
-                    let json = await response.json();
-                    if (response.status == 200) {
-                        result.className = 'form-result success';
-                        result.textContent = 'Thank you! We will walk with you soon.';
-                        form.reset();
-                        // Close modal after a short delay
-                        setTimeout(() => {
-                            closeModal();
-                            result.textContent = '';
-                            result.className = 'form-result';
-                        }, 2500);
-                    } else {
+                    .then(async (response) => {
+                        let json = await response.json();
+                        if (response.status == 200) {
+                            result.className = 'form-result success';
+                            result.textContent = 'Thank you! We will walk with you soon.';
+                            form.reset();
+                            // Close modal after a short delay
+                            setTimeout(() => {
+                                closeModal();
+                                result.textContent = '';
+                                result.className = 'form-result';
+                            }, 2500);
+                        } else {
+                            result.className = 'form-result error';
+                            result.textContent = json.message || 'Something went wrong. Please try again.';
+                        }
+                    })
+                    .catch((error) => {
+                        console.log(error);
                         result.className = 'form-result error';
-                        result.textContent = json.message || 'Something went wrong. Please try again.';
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                    result.className = 'form-result error';
-                    result.textContent = 'Network error. Please try again later.';
-                })
-                .then(() => {
-                    // Reset button state
-                    submitBtn.disabled = false;
-                    if (spinner) spinner.style.display = 'none';
-                    if (btnText) btnText.textContent = 'Send Message';
-                });
+                        result.textContent = 'Network error. Please try again later.';
+                    })
+                    .then(() => {
+                        // Reset button state
+                        submitBtn.disabled = false;
+                        if (spinner) spinner.style.display = 'none';
+                        if (btnText) btnText.textContent = 'Send Message';
+                    });
             });
         }
     </script>
