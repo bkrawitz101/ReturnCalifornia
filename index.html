@@ -111,7 +111,11 @@
             height: auto;
             opacity: 0.7;
             transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            filter: url(#thicken);
+            /* Thicken the lines by adding white drop shadows in all directions */
+            filter: drop-shadow(0.5px 0px 0px rgba(255, 255, 255, 0.85))
+                    drop-shadow(-0.5px 0px 0px rgba(255, 255, 255, 0.85))
+                    drop-shadow(0px 0.5px 0px rgba(255, 255, 255, 0.85))
+                    drop-shadow(0px -0.5px 0px rgba(255, 255, 255, 0.85));
         }
 
         .nav-contact-text {
@@ -126,8 +130,9 @@
             padding-bottom: 2px;
         }
 
-        /* Left paw rotation (-20 degrees outward) */
+        /* Left paw rotation (-20 degrees outward) and size (larger) */
         #open-intention-btn .bear-paw-img {
+            width: 92px;
             transform: rotate(-20deg);
         }
 
@@ -483,19 +488,20 @@
 
     <!-- Background Video -->
     <div class="video-container">
-        <video autoplay muted loop playsinline id="bg-video" src="images/sunrise.mp4" type="video/mp4" preload="auto"></video>
+        <video autoplay muted loop playsinline id="bg-video" src="images/sunrise.mp4" type="video/mp4"
+            preload="auto"></video>
         <div class="video-overlay"></div>
     </div>
 
     <!-- Minimal Nav -->
     <nav>
         <button id="open-intention-btn" class="nav-contact-btn" aria-label="Our Intention">
-            <img class="bear-paw-img" src="images/front_bear.png" alt="" />
+            <img class="bear-paw-img" src="images/hind_bear.png" alt="" />
             <span class="nav-contact-text">Our Intention</span>
         </button>
 
         <button id="open-modal-btn" class="nav-contact-btn" aria-label="Walk With Us">
-            <img class="bear-paw-img" src="images/hind_bear.png" alt="" />
+            <img class="bear-paw-img" src="images/front_bear.png" alt="" />
             <span class="nav-contact-text">Walk With Us</span>
         </button>
     </nav>
@@ -510,7 +516,7 @@
                     <svg class="element-icon" viewBox="0 0 24 24" aria-hidden="true">
                         <polygon points="12,20 4,4 20,4" />
                     </svg>
-                    <span>The waters cleanse us.</span>
+                    <span>The water cleanses us.</span>
                 </div>
                 <div class="poem-line">
                     <svg class="element-icon" viewBox="0 0 24 24" aria-hidden="true">
@@ -530,7 +536,7 @@
                         <polygon points="12,4 4,20 20,20" />
                         <line x1="6" y1="12" x2="18" y2="12" />
                     </svg>
-                    <span>The winds carry our voices.</span>
+                    <span>The wind carries our voices.</span>
                 </div>
             </div>
         </div>
@@ -545,11 +551,17 @@
             <button class="close-btn" id="close-intention" aria-label="Close modal">&times;</button>
             <h2 id="intention-title">Our Intention</h2>
             <div class="intention-body">
-                <p>Return California is building a community where people come together in a good way to care for the land and all living beings, bringing ancestral knowledge forward to meet the needs of today.</p>
-                <p>Rooted in those teachings, we live and practice ceremony as a daily relationship with the earth—honoring the lessons learned from the elements, tending the land, and walking with respect.</p>
-                <p>Through stewardship, shared work, and teaching what we have learned through this work, we walk with others in learning how to be in right relationship with the natural world.</p>
-                <p>We weave ancestral knowledge with modern tools, creating pathways for learning, accessibility, transparency, and the long-term care of the lands entrusted to us.</p>
-                <p>Our work takes place across many lands, including a 42.7-acre cultural easement, all held with accountability through community leadership.</p>
+                <p>Return California is building a community where people come together in a good way to care for the
+                    land and all living beings, bringing ancestral knowledge forward to meet the needs of today.</p>
+                <p>Rooted in those teachings, we live and practice ceremony as a daily relationship with the
+                    earth—honoring the lessons learned from the elements, tending the land, and walking with respect.
+                </p>
+                <p>Through stewardship, shared work, and teaching what we have learned through this work, we walk with
+                    others in learning how to be in right relationship with the natural world.</p>
+                <p>We weave ancestral knowledge with modern tools, creating pathways for learning, accessibility,
+                    transparency, and the long-term care of the lands entrusted to us.</p>
+                <p>Our work takes place across many lands, including a 42.7-acre cultural easement, all held with
+                    accountability through community leadership.</p>
             </div>
         </div>
     </div>
@@ -610,7 +622,7 @@
             setTimeout(() => {
                 if (video.paused) {
                     console.log("Native autoplay was blocked. Registering user gesture interaction listeners...");
-                    
+
                     const forcePlay = () => {
                         video.play().then(() => {
                             handlePlaying();
@@ -753,13 +765,6 @@
             });
         }
     </script>
-    <!-- SVG Filter to thicken PNG line weights -->
-    <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
-        <filter id="thicken">
-            <feMorphology operator="dilate" radius="0.6" in="SourceGraphic" result="dilated" />
-            <feComposite in="SourceGraphic" in2="dilated" operator="over" />
-        </filter>
-    </svg>
 </body>
 
 </html>
