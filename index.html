@@ -151,6 +151,31 @@
             opacity: 1;
         }
 
+        /* Basket icon styling */
+        .basket-img {
+            width: 92px;
+            height: auto;
+            opacity: 0.7;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        #zeffy-donate-btn:hover .basket-img {
+            transform: scale(1.08) translateY(-2px);
+            opacity: 1;
+            filter: drop-shadow(0px 0px 4px rgba(255, 255, 255, 0.45));
+        }
+
+        .basket-img-mini {
+            width: 22px;
+            height: auto;
+            opacity: 0.75;
+            transition: all 0.3s ease;
+        }
+
+        .modal-donation-btn:hover .basket-img-mini {
+            opacity: 1;
+        }
+
         .nav-contact-btn:hover .nav-contact-text {
             color: white;
             border-bottom: 1px solid white;
@@ -262,11 +287,29 @@
 
         @media (max-width: 768px) {
             nav {
-                padding: 30px 20px;
+                padding: 20px 15px;
+                gap: 8px;
+            }
+
+            .bear-paw-img {
+                width: 48px !important;
+            }
+
+            #open-intention-btn .bear-paw-img {
+                width: 54px !important;
+            }
+
+            .basket-img {
+                width: 54px !important;
+            }
+
+            .nav-contact-text {
+                font-size: 0.7rem;
+                letter-spacing: 0.8px;
             }
 
             .hero {
-                padding-top: 100px;
+                padding-top: 120px;
             }
 
             #bg-video {
@@ -459,6 +502,55 @@
             font-weight: 300;
         }
 
+        /* Modal Donation Promo */
+        .modal-donation-promo {
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px dashed rgba(255, 255, 255, 0.15);
+            border-radius: 6px;
+            padding: 16px;
+            margin-bottom: 24px;
+            text-align: center;
+        }
+
+        .modal-donation-promo p {
+            font-size: 0.9rem;
+            margin: 0 0 12px 0;
+            color: rgba(255, 255, 255, 0.85);
+            font-weight: 300;
+        }
+
+        .modal-donation-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+            background: var(--mist-cream);
+            color: var(--bark);
+            border: none;
+            border-radius: 4px;
+            padding: 8px 20px;
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.1rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            width: auto;
+        }
+
+        .modal-donation-btn:hover {
+            background: white;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            transform: translateY(-1px);
+        }
+
+        .modal-donation-btn .bear-paw-mini {
+            width: 18px;
+            height: auto;
+            filter: drop-shadow(0.2px 0px 0px rgba(0, 0, 0, 0.5));
+        }
+
         /* Intention Modal Body Styles */
         .intention-body {
             margin-top: 25px;
@@ -498,6 +590,11 @@
         <button id="open-intention-btn" class="nav-contact-btn" aria-label="Our Intention">
             <img class="bear-paw-img" src="images/hind_bear.png" alt="" />
             <span class="nav-contact-text">Our Intention</span>
+        </button>
+
+        <button id="zeffy-donate-btn" class="nav-contact-btn" zeffy-form-link="https://www.zeffy.com/embed/donation-form/return-california-fundraiser--2026?modal=true" aria-label="Support Us">
+            <img class="basket-img" src="images/support_basket.png" alt="" />
+            <span class="nav-contact-text">Support Us</span>
         </button>
 
         <button id="open-modal-btn" class="nav-contact-btn" aria-label="Walk With Us">
@@ -572,6 +669,15 @@
             <button class="close-btn" id="close-modal" aria-label="Close modal">&times;</button>
             <h2 id="modal-title">Walk With Us</h2>
             <p class="modal-intro">Leave your name and email, and let us know how you would like to connect.</p>
+
+            <!-- Support Us Promo -->
+            <div class="modal-donation-promo">
+                <p>Would you like to support our work directly?</p>
+                <button class="modal-donation-btn" zeffy-form-link="https://www.zeffy.com/embed/donation-form/return-california-fundraiser--2026?modal=true">
+                    <img class="basket-img-mini" src="images/support_basket_dark.png" alt="" />
+                    <span>Support Us</span>
+                </button>
+            </div>
 
             <form id="contact-form" action="https://api.web3forms.com/submit" method="POST">
                 <input type="hidden" name="access_key" value="852724f4-d380-4417-baad-17473a198bc5">
@@ -765,6 +871,7 @@
             });
         }
     </script>
+    <script src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js"></script>
 </body>
 
 </html>
