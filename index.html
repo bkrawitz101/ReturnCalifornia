@@ -4,7 +4,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Return California | Tending the Land</title>
+    <title>Return California | When we wake, we are in ceremony</title>
+    <meta name="description" content="Return California is a 508(c)(1)(a) organization bringing ancestral knowledge forward to tend the land, care for all living beings, and live ceremony in daily relationship with the earth.">
+    <meta name="keywords" content="Return California, land stewardship, cultural easement, ancestral knowledge, indigenous teachings, 508c1a, California ecology">
+    <meta name="theme-color" content="#2E312C">
+    <meta name="color-scheme" content="dark">
+
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Return California | When we wake, we are in ceremony">
+    <meta property="og:description" content="Building a community where people come together in a good way to care for the land and all living beings, bringing ancestral knowledge forward.">
+    <meta property="og:image" content="images/east_front.webp">
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Return California | When we wake, we are in ceremony">
+    <meta name="twitter:description" content="Building a community where people come together in a good way to care for the land and all living beings, bringing ancestral knowledge forward.">
+    <meta name="twitter:image" content="images/east_front.webp">
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/front_bear.png">
+
+    <!-- Schema.org JSON-LD -->
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "NGO",
+      "name": "Return California",
+      "description": "A 508(c)(1)(a) organization dedicated to bringing ancestral knowledge forward to care for the land and all living beings.",
+      "image": "images/front_bear.png",
+      "knowsAbout": [
+        "Land Stewardship",
+        "Ancestral Knowledge",
+        "Cultural Easements",
+        "Ecological Restoration"
+      ]
+    }
+    </script>
+
     <link
         href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Inter:wght@300;400&display=swap"
         rel="stylesheet">
@@ -41,6 +78,7 @@
             height: 100vh;
             z-index: 1;
             overflow: hidden;
+            background-color: var(--bark);
         }
 
         #bg-video {
@@ -181,17 +219,28 @@
             border-bottom: 1px solid white;
         }
 
+        /* Focus visible styling for keyboard users */
+        .nav-contact-btn:focus-visible,
+        .modal-donation-btn:focus-visible,
+        .close-btn:focus-visible,
+        .submit-btn:focus-visible {
+            outline: 2px solid var(--mist-cream);
+            outline-offset: 4px;
+            border-radius: 4px;
+        }
+
         /* Hero */
         .hero {
             position: relative;
             width: 100%;
             height: 100vh;
+            height: 100svh;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             align-items: center;
             text-align: center;
-            padding: 120px 20px 40px 20px;
+            padding: 120px 20px 32px 20px;
             z-index: 5;
         }
 
@@ -261,6 +310,10 @@
         }
 
         .hero-footer {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 14px;
             opacity: 0;
             animation: fadeIn 2s forwards 1.5s ease-out;
         }
@@ -272,6 +325,50 @@
             letter-spacing: 0.5px;
         }
 
+        .enter-land-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(243, 239, 230, 0.82);
+            text-decoration: none;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.78rem;
+            font-weight: 300;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            padding: 8px 18px;
+            border: 1px solid rgba(243, 239, 230, 0.28);
+            border-radius: 999px;
+            background: rgba(46, 49, 44, 0.32);
+            transition: color 0.3s ease, border-color 0.3s ease, background 0.3s ease;
+        }
+
+        .enter-land-link:hover,
+        .enter-land-link:focus-visible {
+            color: white;
+            border-color: rgba(243, 239, 230, 0.7);
+            background: rgba(46, 49, 44, 0.55);
+        }
+
+        .intention-next-link {
+            display: inline-block;
+            margin-top: 10px;
+            color: var(--mist-cream);
+            font-family: 'Cormorant Garamond', serif;
+            font-size: 1.2rem;
+            letter-spacing: 0.4px;
+            text-decoration: none;
+            border-bottom: 1px solid rgba(243, 239, 230, 0.4);
+            padding-bottom: 2px;
+            transition: color 0.25s ease, border-color 0.25s ease;
+        }
+
+        .intention-next-link:hover,
+        .intention-next-link:focus-visible {
+            color: white;
+            border-bottom-color: white;
+        }
+
         @keyframes fadeUp {
             to {
                 opacity: 1;
@@ -281,6 +378,30 @@
 
         @keyframes fadeIn {
             to {
+                opacity: 1;
+            }
+        }
+
+        /* Reduced Motion */
+        @media (prefers-reduced-motion: reduce) {
+            *,
+            ::before,
+            ::after {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+                scroll-behavior: auto !important;
+            }
+
+            .hero h1,
+            .hero-tagline,
+            .hero-poem,
+            .hero-footer {
+                opacity: 1 !important;
+                transform: none !important;
+            }
+
+            #bg-video {
                 opacity: 1;
             }
         }
@@ -581,13 +702,13 @@
     <!-- Background Video -->
     <div class="video-container">
         <video autoplay muted loop playsinline id="bg-video" src="images/sunrise.mp4" type="video/mp4"
-            preload="auto"></video>
+            preload="auto" poster="images/east_front.webp" aria-hidden="true"></video>
         <div class="video-overlay"></div>
     </div>
 
     <!-- Minimal Nav -->
-    <nav>
-        <button id="open-intention-btn" class="nav-contact-btn" aria-label="Our Intention">
+    <nav aria-label="Main Navigation">
+        <button id="open-intention-btn" class="nav-contact-btn" aria-label="Our Intention" aria-haspopup="dialog" aria-expanded="false" aria-controls="intention-modal">
             <img class="bear-paw-img" src="images/hind_bear.png" alt="" />
             <span class="nav-contact-text">Our Intention</span>
         </button>
@@ -597,7 +718,7 @@
             <span class="nav-contact-text">Support Us</span>
         </button>
 
-        <button id="open-modal-btn" class="nav-contact-btn" aria-label="Walk With Us">
+        <button id="open-modal-btn" class="nav-contact-btn" aria-label="Walk With Us" aria-haspopup="dialog" aria-expanded="false" aria-controls="contact-modal">
             <img class="bear-paw-img" src="images/front_bear.png" alt="" />
             <span class="nav-contact-text">Walk With Us</span>
         </button>
@@ -638,14 +759,15 @@
             </div>
         </div>
         <div class="hero-footer">
+            <a href="land.html" class="enter-land-link">Enter &middot; The Land &rarr;</a>
             <p>&copy; 2026 Return California. A 508(c)(1)(a)</p>
         </div>
     </main>
 
     <!-- Intention Modal -->
-    <div id="intention-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="intention-title">
+    <div id="intention-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="intention-title" aria-modal="true">
         <div class="modal-content" style="max-height: 85vh; overflow-y: auto;">
-            <button class="close-btn" id="close-intention" aria-label="Close modal">&times;</button>
+            <button class="close-btn" id="close-intention" aria-label="Close Our Intention modal">&times;</button>
             <h2 id="intention-title">Our Intention</h2>
             <div class="intention-body">
                 <p>Return California is building a community where people come together in a good way to care for the
@@ -659,21 +781,22 @@
                     transparency, and the long-term care of the lands entrusted to us.</p>
                 <p>Our work takes place across many lands, including a 42.7-acre cultural easement, all held with
                     accountability through community leadership.</p>
+                <a href="land.html" class="intention-next-link">Continue to The Land &rarr;</a>
             </div>
         </div>
     </div>
 
     <!-- Contact Modal -->
-    <div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title">
+    <div id="contact-modal" class="modal" aria-hidden="true" role="dialog" aria-labelledby="modal-title" aria-modal="true">
         <div class="modal-content">
-            <button class="close-btn" id="close-modal" aria-label="Close modal">&times;</button>
+            <button class="close-btn" id="close-modal" aria-label="Close Walk With Us modal">&times;</button>
             <h2 id="modal-title">Walk With Us</h2>
             <p class="modal-intro">Leave your name and email, and let us know how you would like to connect.</p>
 
             <!-- Support Us Promo -->
             <div class="modal-donation-promo">
                 <p>Would you like to support our work directly?</p>
-                <button class="modal-donation-btn" zeffy-form-link="https://www.zeffy.com/embed/donation-form/return-california-fundraiser--2026?modal=true">
+                <button class="modal-donation-btn" zeffy-form-link="https://www.zeffy.com/embed/donation-form/return-california-fundraiser--2026?modal=true" aria-label="Support Us on Zeffy">
                     <img class="basket-img-mini" src="images/support_basket_dark.png" alt="" />
                     <span>Support Us</span>
                 </button>
@@ -685,12 +808,12 @@
 
                 <div class="form-group">
                     <label for="form-name">Name</label>
-                    <input type="text" id="form-name" name="name" required placeholder="Your name">
+                    <input type="text" id="form-name" name="name" required autocomplete="name" placeholder="Your name">
                 </div>
 
                 <div class="form-group">
                     <label for="form-email">Email</label>
-                    <input type="email" id="form-email" name="email" required placeholder="Your email address">
+                    <input type="email" id="form-email" name="email" required autocomplete="email" placeholder="Your email address">
                 </div>
 
                 <div class="form-group">
@@ -701,11 +824,11 @@
 
                 <button type="submit" class="submit-btn" id="submit-btn">
                     <span>Send Message</span>
-                    <span class="loading-spinner"></span>
+                    <span class="loading-spinner" aria-hidden="true"></span>
                 </button>
             </form>
 
-            <div id="form-result" class="form-result"></div>
+            <div id="form-result" class="form-result" role="status" aria-live="polite"></div>
         </div>
     </div>
 
@@ -717,18 +840,15 @@
                 video.classList.add('playing');
             };
 
-            // If the video is already playing natively, register it immediately
             if (!video.paused) {
                 handlePlaying();
             } else {
                 video.addEventListener('playing', handlePlaying);
             }
 
-            // Fallback: If native HTML autoplay is blocked after 1 second, wait for user interaction to trigger it
+            // Fallback: If native HTML autoplay is blocked after 1 second, wait for user interaction
             setTimeout(() => {
                 if (video.paused) {
-                    console.log("Native autoplay was blocked. Registering user gesture interaction listeners...");
-
                     const forcePlay = () => {
                         video.play().then(() => {
                             handlePlaying();
@@ -751,6 +871,30 @@
             }, 1000);
         }
 
+        // Modal Management with Accessible Focus Handling
+        let lastFocusedElement = null;
+
+        const trapFocus = (e, modalElement) => {
+            const focusables = modalElement.querySelectorAll('button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])');
+            if (!focusables.length) return;
+            const firstFocusable = focusables[0];
+            const lastFocusable = focusables[focusables.length - 1];
+
+            if (e.key === 'Tab') {
+                if (e.shiftKey) {
+                    if (document.activeElement === firstFocusable) {
+                        e.preventDefault();
+                        lastFocusable.focus();
+                    }
+                } else {
+                    if (document.activeElement === lastFocusable) {
+                        e.preventDefault();
+                        firstFocusable.focus();
+                    }
+                }
+            }
+        };
+
         // Contact Modal Elements
         const modal = document.getElementById('contact-modal');
         const openBtn = document.getElementById('open-modal-btn');
@@ -758,9 +902,12 @@
 
         const openModal = () => {
             if (modal) {
+                lastFocusedElement = document.activeElement;
                 modal.classList.add('active');
                 modal.setAttribute('aria-hidden', 'false');
-                document.getElementById('form-name').focus();
+                if (openBtn) openBtn.setAttribute('aria-expanded', 'true');
+                const nameInput = document.getElementById('form-name');
+                if (nameInput) nameInput.focus();
             }
         };
 
@@ -768,6 +915,8 @@
             if (modal) {
                 modal.classList.remove('active');
                 modal.setAttribute('aria-hidden', 'true');
+                if (openBtn) openBtn.setAttribute('aria-expanded', 'false');
+                if (lastFocusedElement) lastFocusedElement.focus();
             }
         };
 
@@ -781,8 +930,11 @@
 
         const openIntention = () => {
             if (intentionModal) {
+                lastFocusedElement = document.activeElement;
                 intentionModal.classList.add('active');
                 intentionModal.setAttribute('aria-hidden', 'false');
+                if (openIntentionBtn) openIntentionBtn.setAttribute('aria-expanded', 'true');
+                if (closeIntentionBtn) closeIntentionBtn.focus();
             }
         };
 
@@ -790,24 +942,30 @@
             if (intentionModal) {
                 intentionModal.classList.remove('active');
                 intentionModal.setAttribute('aria-hidden', 'true');
+                if (openIntentionBtn) openIntentionBtn.setAttribute('aria-expanded', 'false');
+                if (lastFocusedElement) lastFocusedElement.focus();
             }
         };
 
         if (openIntentionBtn) openIntentionBtn.addEventListener('click', openIntention);
         if (closeIntentionBtn) closeIntentionBtn.addEventListener('click', closeIntention);
 
+        // Global Modal Keyboard Traps & Dismissals
+        window.addEventListener('keydown', (e) => {
+            if (modal && modal.classList.contains('active')) {
+                if (e.key === 'Escape') closeModal();
+                else trapFocus(e, modal);
+            }
+            if (intentionModal && intentionModal.classList.contains('active')) {
+                if (e.key === 'Escape') closeIntention();
+                else trapFocus(e, intentionModal);
+            }
+        });
+
         // Close either modal on clicking outside content
         window.addEventListener('click', (e) => {
             if (e.target === modal) closeModal();
             if (e.target === intentionModal) closeIntention();
-        });
-
-        // Close either modal on Escape key
-        window.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                if (modal && modal.classList.contains('active')) closeModal();
-                if (intentionModal && intentionModal.classList.contains('active')) closeIntention();
-            }
         });
 
         // Form submission via Web3Forms AJAX
@@ -841,7 +999,7 @@
                     body: json
                 })
                     .then(async (response) => {
-                        let json = await response.json();
+                        let resData = await response.json();
                         if (response.status == 200) {
                             result.className = 'form-result success';
                             result.textContent = 'Thank you! We will walk with you soon.';
@@ -854,7 +1012,7 @@
                             }, 2500);
                         } else {
                             result.className = 'form-result error';
-                            result.textContent = json.message || 'Something went wrong. Please try again.';
+                            result.textContent = resData.message || 'Something went wrong. Please try again.';
                         }
                     })
                     .catch((error) => {
@@ -869,6 +1027,11 @@
                         if (btnText) btnText.textContent = 'Send Message';
                     });
             });
+        }
+        if (window.location.hash === '#walk') {
+            openModal();
+        } else if (window.location.hash === '#intention') {
+            openIntention();
         }
     </script>
     <script src="https://zeffy-scripts.s3.ca-central-1.amazonaws.com/embed-form-script.min.js"></script>
